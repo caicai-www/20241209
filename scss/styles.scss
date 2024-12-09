@@ -1,0 +1,552 @@
+.bg{
+    background: red;
+}
+*,*::before,*::after{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body{
+    font-family: '微軟正黑體';
+}
+
+.container{
+    width: 75%;
+    padding-left:15px ;
+    padding-right: 15px;
+    margin: auto;
+}
+
+h1,h2,h3,h4,h5,h6{
+    margin: 20px 0 20px;
+    background: lightgoldenrodyellow;
+}
+
+p{
+    margin-bottom: 1rem;
+}
+
+section{
+    margin-bottom: 2rem !important;
+}
+
+// 單行註解 =>不會被complict出去
+/* 多行註解 =>會被complict出去 */
+/* 原生變數可以被編譯出去 */
+:root{
+--primary: #0d6efd;
+--secondary: #6c757d;
+--success: #198754;
+--info: #0dcaf0;
+--warning: #ffc107;
+--danger: #dc3545;
+--light: #f8f9fa;
+--dark: #212529;
+}
+
+/* ★SCSS的變數無法編譯出去! 只會活在SCSS環境內*/
+// 用$來宣告
+
+$primary:#0d6efd;
+$secondary: #6c757d;
+$success: #198754;
+$info: #0dcaf0;
+$warning: #ffc107;
+$danger: #dc3545;
+$light: #f8f9fa;
+$dark: #212529;
+$white:#ffffff;
+
+
+// 全域變數
+$width:200px;
+$mycolor:red;
+
+
+.foo{
+    // 區域變數
+    // 如果把下面這行這段註解起來,就會往外找到60行的$width: 200px;
+    $width:100px;
+    width:$width;
+    // 會找到61行的$mycolor: red;
+    color:$mycolor;
+}
+
+// 只要符合css規範的值,都可以設定變數
+$gradient:linear-gradient(0deg,rgb(0,0,50)0%,rgb(0,50,200)50%,rgb(0,0,255)100%);
+$border:5px solid #fff;
+$border-radius:0.5rem;
+$padding:0.5rem 0.6rem;
+$margin-bottom:1rem;
+$shadow:0 0 5px rgba(0,0,0,0.8);
+
+
+h1{
+    line-height: 1;
+    background: $gradient;
+    color:$white;
+    border:$border;
+    border-radius:$border-radius;
+    padding: $padding;
+    /*編譯後自動加上前綴詞 -webkit-*/
+    box-shadow: $shadow;
+    margin-bottom: $margin-bottom;
+}
+
+
+/* 流程控制 */
+// 可以改數字,下面if函式就會編譯出不同顏色
+$number:1;
+// 可以使用內建函式(sass提供許多內鍵函式)
+$number:random(3);
+
+.mybox{
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // 用 @ 宣告
+    @if $number==1 {
+        background: red;
+    }@else if $number==2 {
+        background: blue;
+    }@else{
+        background: green;
+    }
+    // 判斷會通過,字串會轉譯成css
+    @if(helloworld=='helloworld'){
+        font-style: italic;
+    }
+
+    // 判斷會通過,但不會編譯到css
+    // @if(10==10px){
+    //     font-style:italic;
+    // }
+
+    $rich:'有錢';
+    $time:'有時間';
+
+    // SASS的運算子用 "and" 而不是&&
+    @if $rich=='有錢' and $time=='有時間'{
+        color:white !important;
+        }@else{
+            color:yellow !important;
+        }
+
+
+    $isRain:'YES';
+    $isBusy:'NO';  
+    // 使用or去判斷兩算式,其中之一成立,不是使用||
+        @if $isRain=='YES' or $isBusy=='YES'{
+    font-weight: bolder;       
+    font-size: 50px;
+}@else {
+        font-size: 16px;
+}
+
+// 使用not去反運算式的結果
+$box-width:50px;
+// ★需要括號 ,意思是 如果不是100px的話0
+// not ($box-width==100px) not去判斷括號裡面的運算式
+@if not ($box-width==100px){
+    border:10px dashed yellow;
+}@else{
+    border:10px dotted darkmagenta;
+}
+
+$mySpacing:20px;
+// 內建函式 if() ,類似三元運算式,因為是函式,因此if沒有@
+// 直接用if呼叫
+//         ↓判斷條件是否成立, ↓成立時的參數 ,   ↓不成立時的參數
+outline:if($mySpacing>10px,10px solid pink,10px solid black)
+
+}
+
+//宣告一個變數i 會從1~3跑迴圈(包含end:3)
+@for $i from 1 through 3{
+    // 用#字號去串
+    .through-#{$i}{
+    width: 50px *$i;
+    height: 50px*$i;
+    display: inline-block;
+    background: #aaa;
+    }
+
+}
+
+//會從1~2跑迴圈(不包含end:3)
+@for $i from 1 to 3 {
+    .to-#{$i} {
+        width: 50px *$i;
+        height: 50px*$i;
+        display: inline-block;
+        background: #aaa;
+    }
+
+}
+
+#section05{
+    ul.menu{
+        display: flex;
+        justify-content: center;
+        list-style: none;
+      li{
+        width: 100px;
+        text-align: center;
+    
+         a{
+            text-decoration: none;   
+            background: lightgray;
+            display: block;
+            // 直接在裡面用&:hover 就可以寫
+            // & =>拿上一層(父層)選擇器 ,這裡的&是拿到a
+            &:hover{
+            color:purple;
+            background: pink;
+            }
+            }
+            // 這裡的是li +li
+        &+li{
+            border-left:1px solid blue;
+            }
+        }  
+    }
+}
+
+#exercise{
+    .row{
+        display: flex;
+        justify-content: center;
+
+        .col{
+            text-align: center;
+            padding: 1rem;
+            a{
+                text-decoration: none;
+                display: block;
+                background: pink;
+                &:hover{
+                background:orange;
+                color:#fff;
+                }
+            }
+        &+.col{
+            border-left:1px solid blue
+        }
+        }
+     }
+}
+
+// 新建class(名稱可以自己取)給其它人用
+// 佔位符選擇器（以 % 開頭的選擇器）本身不會被編譯成 CSS
+%extend123{
+width: 50px;
+height: 50px;
+float:left;    
+}
+
+.box1{
+    @extend %extend123;
+    background: red;
+}
+
+.box2 {
+    @extend %extend123;
+    background: green;
+}
+
+.box3 {
+    @extend %extend123;
+    background: blue;
+}
+
+#section07{
+    clear: both;
+}
+
+/* 計算 */
+.box4{
+    background: black;
+    // 加法
+    width: 50px + 50px;
+    // width: 50px +50 (O)
+    height: 50px + 50;
+    // 減法
+    width: 100px - 50px;
+    height: 100px - 50 ;
+    // 乘法
+    width: 50px * 2;
+    // width:50px * 2px (X) 兩個有單位相乘會無法編譯
+    height: 50px * 2;
+
+    // 除法 ★要用小括號才能正確編譯出去
+    // width: 100px / 2 (X) 編譯會過,但結果不對
+    width: (100px / 2);
+    $child:500px;
+    $mother:10;
+    // 使用變數不需要括號
+    height:$child/$mother;
+
+    // 若分子分母都有單位,單位會被消除
+    $child2: 10px;
+    $mother2: 10px;
+    line-height:$child2/$mother2;
+
+    margin-top: 20px % 100;
+}
+
+/* 函式 */
+// 用@呼叫FUNCTION
+@function randomFont(){
+    $result:random(3);
+    @if $result==1{
+        @return 20px;
+        }@else if $result==2{
+        @return 40px;
+        }@else{
+        @return 60px;
+    }
+}
+
+// 傳參數
+@function boxLenght1($length,$base){
+    @return $length*$base*1px;
+}
+
+// 指定預設值
+@function boxLenght2($length:100,$base:1){
+    @return $length*$base*1px;
+}
+
+.funcbox{
+    width: 100px;
+    height: 100px;
+    color:white;
+    background: deeppink;
+    font-size: randomFont();
+    width: boxLenght1( 100,2 );
+    // 不指定參數就是預設
+    height: boxLenght2();
+    // 指定參數
+    height: boxLenght2(200, 1 );
+}
+
+// px to rem
+
+@function rem($px){
+    // 1.先判斷資料有無單位
+    // unit()內建函式,判斷變數是否有'px'
+    @if(unit($px)=='px'){
+// 有px的
+@return ($px / 16px ) * 1rem;
+    }
+    // 傳進去沒單位的
+
+    @else{
+        @return($px / 16) * 1rem
+    }
+}
+
+.rem{
+    font-size: rem(16px);
+    padding: rem(48);
+}
+
+// 設定字體大小
+$baseFontSize:14px;
+$size:2px;
+@function fontSize($level){
+@return round($baseFontSize + $size * $level);
+
+}
+
+// 設定行高
+
+$lineHeightLevel:1.5;
+@function lineHight($fontSize){
+    @return $fontSize * $lineHeightLevel;
+}
+
+#section08{
+    $color:blue;
+    p{
+        font-size: fontSize(3);
+        line-height: lineHight(30px);
+        color:darken($color,30%);
+        color:lighten($color,30%)
+    }
+}
+
+// @mixin(混入)
+@mixin mixinTry(){
+    width: 100px;
+    height: 100px;
+    background:#333;
+}
+
+// 使用@includ引入mixin
+.mininTry123{
+@include mixinTry();}
+
+@mixin box($width,$height,$bg,$border,$outline:10px dashed pink){
+    width:$width;
+    height: $height;
+    background: $bg;
+    border:$border;
+    outline:$outline;
+}
+
+.boxflex{
+    // 如果要省略跳過參數,需傳入null
+    // @include box(100px,100px,red,5px solid #333)
+    @include box(100px,100px,null,5px solid #333)
+}
+
+@mixin btn-bg($bgcolor){
+    // 一般樣式
+&{
+    background:$bgcolor;
+}
+    // 滑過去樣式
+    &:hover{
+        @if($bgcolor==#000){
+        background-color: lighten($bgcolor, 30%)
+        }@else{
+        background-color: darken($bgcolor, 30%)
+        }
+    }
+
+}
+
+.btn{
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    line-height: 1.5;
+    padding: 0.5rem;
+    margin: 0 0.5rem;
+    border-radius: 0.25rem;
+
+}
+
+.btn-dark{
+@include btn-bg(#000);
+}
+
+.btn-primary{
+@include btn-bg($primary);
+}
+
+.btn-success{
+    @include btn-bg($success);
+
+}
+
+.btn-danger{
+    @include btn-bg($danger);
+}
+
+$breakpoint-sm:576px;
+$breakpoint-md:768px;
+$breakpoint-lg:992px;
+$breakpoint-xl:1200px;
+$breakpoint-xxl:1400px;
+
+
+@mixin sm{
+    @media(min-width:$breakpoint-sm){
+// @content 允許你在 mixin 中插入一部分樣式，這部分樣式會在 mixin 被調用時插入。
+// @content等於大括弧裡面寫的東西
+        @content;
+    }
+}
+
+@mixin md {
+    @media(min-width:$breakpoint-md) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media(min-width:$breakpoint-lg) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media(min-width:$breakpoint-xl) {
+        @content;
+    }
+}
+
+@mixin xxl {
+    @media(min-width:$breakpoint-xxl) {
+        @content;
+    }
+}
+
+#section10{
+    // xs
+    .container{
+        width: 100%;
+    }
+
+    .row{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .col{
+        width: 100%;
+        padding:15px;
+        border: 1px solid #333;
+    }
+
+
+    // sm
+    @include sm{
+     .container {
+        width: 75%;
+    }
+    .col{
+        width: 50%;
+    }
+
+    .col + .col{
+        margin-top:0 ;
+    }
+    }
+
+    // md
+    @include md {
+        .col{
+            width: 33.33333%;
+        }
+    }
+
+     // lg
+    @include lg {
+        .col {
+                width: 25%;
+            }
+    }
+
+     // xl
+    @include xl {
+        .col {
+                width: 20%;
+            }
+        }
+   
+
+     // xxl
+    @include xxl {
+        .col {
+                width: 10%;
+            }
+        }
+     }

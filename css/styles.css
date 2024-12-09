@@ -1,0 +1,336 @@
+@charset "UTF-8";
+.bg {
+  background: red;
+}
+
+*, *::before, *::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body {
+  font-family: "微軟正黑體";
+}
+
+.container {
+  width: 75%;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 20px;
+  background: lightgoldenrodyellow;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+section {
+  margin-bottom: 2rem !important;
+}
+
+/* 多行註解 =>會被complict出去 */
+/* 原生變數可以被編譯出去 */
+:root {
+  --primary: #0d6efd;
+  --secondary: #6c757d;
+  --success: #198754;
+  --info: #0dcaf0;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #212529;
+}
+
+/* ★SCSS的變數無法編譯出去! 只會活在SCSS環境內*/
+.foo {
+  width: 100px;
+  color: red;
+}
+
+h1 {
+  line-height: 1;
+  background: -webkit-gradient(linear, left bottom, left top, from(rgb(0, 0, 50)), color-stop(50%, rgb(0, 50, 200)), to(rgb(0, 0, 255)));
+  background: linear-gradient(0deg, rgb(0, 0, 50) 0%, rgb(0, 50, 200) 50%, rgb(0, 0, 255) 100%);
+  color: #ffffff;
+  border: 5px solid #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.6rem;
+  /*編譯後自動加上前綴詞 -webkit-*/
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+  margin-bottom: 1rem;
+}
+
+/* 流程控制 */
+.mybox {
+  width: 150px;
+  height: 150px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: blue;
+  font-style: italic;
+  color: white !important;
+  font-weight: bolder;
+  font-size: 50px;
+  border: 10px dashed yellow;
+  outline: 10px solid pink;
+}
+
+.through-1 {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background: #aaa;
+}
+
+.through-2 {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  background: #aaa;
+}
+
+.through-3 {
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+  background: #aaa;
+}
+
+.to-1 {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background: #aaa;
+}
+
+.to-2 {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  background: #aaa;
+}
+
+#section05 ul.menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  list-style: none;
+}
+#section05 ul.menu li {
+  width: 100px;
+  text-align: center;
+}
+#section05 ul.menu li a {
+  text-decoration: none;
+  background: lightgray;
+  display: block;
+}
+#section05 ul.menu li a:hover {
+  color: purple;
+  background: pink;
+}
+#section05 ul.menu li + li {
+  border-left: 1px solid blue;
+}
+
+#exercise .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+#exercise .row .col {
+  text-align: center;
+  padding: 1rem;
+}
+#exercise .row .col a {
+  text-decoration: none;
+  display: block;
+  background: pink;
+}
+#exercise .row .col a:hover {
+  background: orange;
+  color: #fff;
+}
+#exercise .row .col + .col {
+  border-left: 1px solid blue;
+}
+
+.box3, .box2, .box1 {
+  width: 50px;
+  height: 50px;
+  float: left;
+}
+
+.box1 {
+  background: red;
+}
+
+.box2 {
+  background: green;
+}
+
+.box3 {
+  background: blue;
+}
+
+#section07 {
+  clear: both;
+}
+
+/* 計算 */
+.box4 {
+  background: black;
+  width: 100px;
+  height: 100px;
+  width: 50px;
+  height: 50px;
+  width: 100px;
+  height: 100px;
+  width: 50px;
+  height: 50px;
+  line-height: 1;
+  margin-top: 20px;
+}
+
+/* 函式 */
+.funcbox {
+  width: 100px;
+  height: 100px;
+  color: white;
+  background: deeppink;
+  font-size: 20px;
+  width: 200px;
+  height: 100px;
+  height: 200px;
+}
+
+.rem {
+  font-size: 1rem;
+  padding: 3rem;
+}
+
+#section08 p {
+  font-size: 20px;
+  line-height: 45px;
+  color: #000066;
+  color: #9999ff;
+}
+
+.mininTry123 {
+  width: 100px;
+  height: 100px;
+  background: #333;
+}
+
+.boxflex {
+  width: 100px;
+  height: 100px;
+  border: 5px solid #333;
+  outline: 10px dashed pink;
+}
+
+.btn {
+  display: inline-block;
+  color: #fff;
+  text-decoration: none;
+  line-height: 1.5;
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.btn-dark {
+  background: #000;
+}
+.btn-dark:hover {
+  background-color: #4d4d4d;
+}
+
+.btn-primary {
+  background: #0d6efd;
+}
+.btn-primary:hover {
+  background-color: #012e70;
+}
+
+.btn-success {
+  background: #198754;
+}
+.btn-success:hover {
+  background-color: #010604;
+}
+
+.btn-danger {
+  background: #dc3545;
+}
+.btn-danger:hover {
+  background-color: #66121a;
+}
+
+#section10 .container {
+  width: 100%;
+}
+#section10 .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+#section10 .col {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #333;
+}
+@media (min-width: 576px) {
+  #section10 .container {
+    width: 75%;
+  }
+  #section10 .col {
+    width: 50%;
+  }
+  #section10 .col + .col {
+    margin-top: 0;
+  }
+}
+@media (min-width: 768px) {
+  #section10 .col {
+    width: 33.33333%;
+  }
+}
+@media (min-width: 992px) {
+  #section10 .col {
+    width: 25%;
+  }
+}
+@media (min-width: 1200px) {
+  #section10 .col {
+    width: 20%;
+  }
+}
+@media (min-width: 1400px) {
+  #section10 .col {
+    width: 10%;
+  }
+}

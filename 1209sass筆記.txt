@@ -1,0 +1,38 @@
+1209
+
+1.安裝擴充
+live sass complict
+
+2.設定json檔增加
+
+	"liveSassCompile.settings.formats": [
+		{
+			"format": "expanded",
+			"extensionName": ".css",
+			"savePath": "~/../css"
+		},
+		{
+			"format": "compressed",
+			"extensionName": ".min.css",
+			"savePath": "~/../dist"
+		}
+	],
+	"liveSassCompile.settings.excludeList": ["/**/node_modules/**", "/.vscode/**"],
+	"liveSassCompile.settings.generateMap": false,
+	"liveSassCompile.settings.autoprefix": ["> 1%", "last 2 versions"],
+
+
+
+3.新建檔案
+scss資料夾 > styles.scss(隨便打樣式測試)
+
+4.右下角會有一個waching sass(擴充的功能)
+按下後會自動建立css跟dist資料夾
+裡面有style.css檔案
+
+
+5.去index.html link "styles.css"
+
+
+★要隨時注意終端機狀態
+存檔時是否是success
